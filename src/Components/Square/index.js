@@ -1,11 +1,10 @@
 import React from "react";
 
-function Square({ makeMove }) {
+function Square({ handleClick,value}) {
   return (
-    <>
-      (x) && {<div>X</div>}
-      (O) && {<div>O</div>}
-    </>
+    <td onClick={handleClick}>
+       {value}
+    </td>
   );
 }
 

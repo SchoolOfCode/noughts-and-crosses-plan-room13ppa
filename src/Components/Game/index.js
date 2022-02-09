@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Board from "../Board/index.js";
 
 export default function Game() {
   const [board, setBoard] = useState([
@@ -13,24 +14,56 @@ export default function Game() {
     null,
   ]);
 
+
   const [turn, setTurn] = useState(true);
 
-  const player1 = "X";
-  const player2 = "O";
 
-  function checkEmpty(){
-    //loop through board and check each box is null, 
-    // if null, setTurn true, else false
-    // player1 X in that square.
+  function calculateWinner(board){
+    const combo = [
+      [0,1,2],
+      [3,4,5],
+      [6,7,8],
+      [0,3,6],
+      [1,4,7],
+      [2,5,8],
+      [0,4,8],
+      [2,4,6]
+    ]
+
+    for(let i=0; i < combo.length; i++){
+      const[a,b,c] = combo[i];
+      if(board[a]&& board[a] === board[b] && board[a] === board[c]){
+        return board[a];
+      }
+    }
+    return null;
   }
-  return <div>index</div>;
+  
+  const winner = calculateWinner(board)
+  const currentPlayer = turn ? 'X':'O';
+
+  function handleClick(index){
+   if(winner || board[index]){
+     return;
+   }
+    
+   setBoard([
+     ...board.slice(0,index),
+     currentPlayer,
+     ...board.slice(index +1)
+   ])
+   setTurn(!turn)
+  }
+  
+
+
+  return (
+    <>
+      <p>Hello</p>
+      <Board handleClick={handleClick} />
+    </>
+    
+  )
 }
 
 
-{
-  A1: null,
-  B2: null,...C3:null,
-}
-
-
-board[5] false;
